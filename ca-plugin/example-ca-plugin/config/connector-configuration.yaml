@@ -1,0 +1,49 @@
+# Connector configuration for a CA plugin. Rendered in the TLM portal when an admin
+# creates a CA connector. Sections follow the existing plugin configuration format.
+metadata:
+  plugin_type: certificate_authority        # new type, alongside automation / discovery
+  name: Example CA
+  version: 1.0.0
+  author: Example Corp
+  description: Issues certificates from Example CA via its REST API.
+  min_sdk_version: 1.0.0
+
+core_settings:
+  sensor_id:
+    label: Managing sensor        # required: the Sensor that runs this plugin
+
+config_settings:
+  config_attributes:
+    baseUrl:
+      label: CA base URL
+      type: text
+      required: true
+      placeholder: https://ca.example.com
+    accountId:
+      label: Account ID
+      type: text
+      required: true
+    apiKey:
+      label: API key
+      type: password
+      required: true
+    timeoutSeconds:
+      label: Request timeout (seconds)
+      type: number
+      required: false
+      default: 30
+
+additional_settings: {}
+
+credential_sets:
+  - name: sensitive      # encrypted at rest
+    fields: [apiKey]
+  - name: unique         # no two connectors may share these
+    fields: [baseUrl, accountId]
+
+# Which optional operations this CA supports. TLM hides unsupported actions.
+supported_operations:
+  - issue
+  - poll
+  - renew
+  - revoke
