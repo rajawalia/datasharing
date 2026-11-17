@@ -1,0 +1,68 @@
+{
+  "template": {
+    "id": "example-ca-tls-server",
+    "name": "Example CA TLS Server Certificate",
+    "description": "Server certificate issued by Example CA.",
+    "connector_type": "Example CA",
+    "certificate_type": "tls_server"
+  },
+  "ca_settings": [
+    {
+      "name": "issuer",
+      "label": "Issuing CA",
+      "type": "select",
+      "required": true,
+      "options_provider_action": "listIssuers",
+      "maps_to": "issuerId"
+    },
+    {
+      "name": "ca_profile",
+      "label": "Example CA profile",
+      "type": "select",
+      "required": true,
+      "options_provider_action": "listCaProfiles",
+      "depends_on": "issuer",
+      "maps_to": "caProfileId",
+      "help": "Most certificate options are defined by the selected CA profile."
+    },
+    {
+      "name": "organization",
+      "label": "Organization",
+      "type": "input",
+      "required": false,
+      "maps_to": "profileSettings.organization"
+    }
+  ],
+  "certificate_options": {
+    "key_algorithms": [
+      "RSA-2048",
+      "RSA-3072",
+      "ECDSA-P256"
+    ],
+    "default_validity_days": 365,
+    "max_validity_days": 398,
+    "subject": {
+      "common_name": {
+        "required": true
+      },
+      "organization": {
+        "required": false
+      }
+    },
+    "san_types": [
+      "DNS",
+      "IP"
+    ],
+    "allow_wildcard": false
+  },
+  "enrollment_methods": [
+    "rest_api",
+    "acme",
+    "est"
+  ],
+  "supported_operations": [
+    "issue",
+    "renew",
+    "revoke"
+  ]
+}
