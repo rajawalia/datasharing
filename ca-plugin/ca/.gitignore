@@ -1,3 +1,4 @@
 .idea/*
-*.imltarget/
+*.iml
+target/
 plugin-dist/
