@@ -1,0 +1,108 @@
+{
+  "metadata": {
+    "author": "Example Corp",
+    "email": "plugins@example.com"
+  },
+  "core_settings": [
+    {
+      "name": "core_attributes.sensor_id",
+      "label": "Managing sensor",
+      "type": "select",
+      "editable": true,
+      "optional": false,
+      "size": "l",
+      "validation": [
+        {
+          "rule": "alphaNumericRule"
+        }
+      ],
+      "options_provider": "Sensors",
+      "required": true
+    }
+  ],
+  "config_settings": [
+    {
+      "name": "config_attributes.baseUrl",
+      "label": "CA base URL",
+      "type": "input",
+      "editable": true,
+      "optional": false,
+      "size": "l",
+      "required": true,
+      "validation": [
+        {
+          "rule": "requiredRule"
+        }
+      ]
+    },
+    {
+      "name": "config_attributes.accountId",
+      "label": "Account ID",
+      "type": "input",
+      "editable": true,
+      "optional": false,
+      "size": "l",
+      "required": true,
+      "validation": [
+        {
+          "rule": "requiredRule"
+        }
+      ]
+    },
+    {
+      "name": "config_attributes.apiKey",
+      "label": "API key",
+      "type": "password",
+      "editable": true,
+      "optional": false,
+      "size": "l",
+      "required": true,
+      "validation": [
+        {
+          "rule": "requiredRule"
+        }
+      ]
+    },
+    {
+      "name": "config_attributes.timeoutSeconds",
+      "label": "Request timeout (seconds)",
+      "type": "input",
+      "editable": true,
+      "optional": true,
+      "size": "l",
+      "required": false
+    }
+  ],
+  "additional_settings": [],
+  "credential_sets": [
+    {
+      "name": "sensitive",
+      "fields": [
+        {
+          "name": "config_attributes.apiKey"
+        }
+      ]
+    },
+    {
+      "name": "unique",
+      "fields": [
+        {
+          "name": "config_attributes.baseUrl"
+        },
+        {
+          "name": "config_attributes.accountId"
+        }
+      ]
+    }
+  ],
+  "ca_settings": {
+    "plugin_type": "certificate_authority",
+    "connector_name": "Example CA",
+    "supported_operations": [
+      "issue",
+      "poll",
+      "renew",
+      "revoke"
+    ]
+  }
+}
